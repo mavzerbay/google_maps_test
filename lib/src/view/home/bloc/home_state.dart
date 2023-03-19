@@ -19,3 +19,12 @@ class HomeCurrentLocationLoaded extends HomeState {
   @override
   List<Object> get props => [currentLocation];
 }
+
+class HomeCurrentLocationError extends HomeState {
+  final String message;
+
+  const HomeCurrentLocationError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}

@@ -21,8 +21,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     final hasPermission = await Geolocator.checkPermission();
 
-    if (hasPermission == LocationPermission.denied) {
-      await Geolocator.requestPermission();
+    if (hasPermission == LocationPermission.denied ||
+        hasPermission == LocationPermission.deniedForever) {
+      final locationPermission = await Geolocator.requestPermission();
+      if (locationPermission == LocationPermission.denied ||
+          locationPermission == LocationPermission.deniedForever) {
+        emit(const HomeCurrentLocationError(
+            'Uygulamayı kullanabilmek için konum izni vermeniz gerekiyor.'));
+        return;
+      }
     }
 
     final locationData = await Geolocator.getCurrentPosition(

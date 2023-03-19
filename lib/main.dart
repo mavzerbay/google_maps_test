@@ -21,9 +21,7 @@ class MyHttpOverrides extends HttpOverrides {
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = AppBlocObserver.instance;
-  if (kDebugMode) {
-    HttpOverrides.global = MyHttpOverrides();
-  }
+  HttpOverrides.global = MyHttpOverrides();
 
   runApp(const MyApp());
 }
